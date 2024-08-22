@@ -1,0 +1,27 @@
+{
+    "name": "sparkles-discord-bot",
+    "version": "1.0.0",
+    "description": "Discord bot for Sparkles AI with image randomization from AWS S3",
+    "main": "index.js",
+    "scripts": {
+      "start": "node index.js",
+      "dev": "nodemon index.js"
+    },
+    "keywords": [
+      "discord",
+      "bot",
+      "aws",
+      "s3",
+      "sparkles"
+    ],
+    "author": "Your Name",
+    "license": "ISC",
+    "dependencies": {
+      "@aws-sdk/client-s3": "^3.354.0",
+      "discord.js": "^14.11.0",
+      "dotenv": "^16.1.4"
+    },
+    "devDependencies": {
+      "nodemon": "^2.0.22"
+    }
+  }
