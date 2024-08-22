@@ -1,4 +1,3 @@
-require('dotenv').config();
 const { Client, GatewayIntentBits, AttachmentBuilder } = require("discord.js");
 const { S3Client, ListObjectsV2Command, GetObjectCommand } = require("@aws-sdk/client-s3");
 
