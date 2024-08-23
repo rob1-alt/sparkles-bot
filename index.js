@@ -4,6 +4,7 @@ const { S3Client, ListObjectsV2Command, GetObjectCommand } = require("@aws-sdk/c
 // Configuration du client Discord
 const bot = new Client({ intents: [GatewayIntentBits.Guilds] });
 
+const BETA_SITE_URL = process.env.BETA_SITE_URL
 // Configuration du client AWS S3
 const s3Client = new S3Client({
   region: process.env.AWS_REGION,
@@ -31,6 +32,10 @@ bot.on("ready", async () => {
         {
             name: "randomize_girl",
             description: "Show a AI girlfriend previously generated"
+        },
+        {
+            name: "beta",
+            description: "Join the beta program"
         }
     ]);
 
@@ -44,6 +49,16 @@ bot.on("interactionCreate", async (interaction) => {
         case "socials":
             await interaction.reply("Notre Twitter : https://x.com/SparklesAI \nNotre site web : https://www.sparkles-app.com/");
             break;
+        
+        case "beta":
+            try {
+                await interaction.user.send(`Rejoignez le programme beta de Sparkles en vous inscrivant sur ${BETA_SITE_URL}`);
+                await interaction.reply("Les informations pour rejoindre le programme beta vous ont été envoyées en message privé.");
+            } catch (error) {
+                console.error("Erreur lors de l'envoi du message privé:", error);
+                await interaction.reply("Impossible de vous envoyer les informations pour rejoindre le programme beta.");
+            }
+
 
         case "randomize_girl":
             try {
