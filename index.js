@@ -2,7 +2,10 @@ const { Client, GatewayIntentBits, AttachmentBuilder } = require("discord.js");
 const { S3Client, ListObjectsV2Command, GetObjectCommand } = require("@aws-sdk/client-s3");
 
 // Configuration du client Discord
-const bot = new Client({ intents: [GatewayIntentBits.Guilds] });
+const bot = new Client({ 
+    intents: [GatewayIntentBits.Guilds],
+    partials: ['CHANNEL']
+});
 
 const BETA_SITE_URL = process.env.BETA_SITE_URL
 // Configuration du client AWS S3
@@ -44,6 +47,11 @@ bot.on("ready", async () => {
 
 bot.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
+
+    if (!interaction.guild) {
+        await interaction.reply({ content: "Commands are only available on servers.", ephemeral: true });
+        return;
+      }
 
     switch (interaction.commandName) {
         case "socials":
@@ -113,3 +121,13 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+bot.on('messageCreate', async (message) => {
+    if (message.channel.type === 'DM' && message.author.id !== bot.user.id) {
+      try {
+        await message.author.send("Sorry, I can't receive private messages. Please use the commands on the server.");
+      } catch (error) {
+        console.error("Impossible d'envoyer un message de réponse en DM:", error);
+      }
+    }
+  });
