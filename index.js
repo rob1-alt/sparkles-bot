@@ -47,13 +47,13 @@ bot.on("interactionCreate", async (interaction) => {
 
     switch (interaction.commandName) {
         case "socials":
-            await interaction.reply("Notre Twitter : https://x.com/SparklesAI \nNotre site web : https://www.sparkles-app.com/");
+            await interaction.reply("Our twitter : https://x.com/SparklesAI \n Our website : https://www.sparkles-app.com/");
             break;
         
         case "beta":
             try {
-                await interaction.user.send(`Rejoignez le programme beta de Sparkles en vous inscrivant sur ${BETA_SITE_URL}`);
-                await interaction.reply("Les informations pour rejoindre le programme beta vous ont été envoyées en message privé.");
+                await interaction.user.send(`Join the Sparkles beta program by registering at ${BETA_SITE_URL}`);
+                await interaction.reply("Information on how to join the beta program has been sent to you in a private message.");
             } catch (error) {
                 console.error("Erreur lors de l'envoi du message privé:", error);
                 await interaction.reply("Impossible de vous envoyer les informations pour rejoindre le programme beta.");
@@ -69,7 +69,7 @@ bot.on("interactionCreate", async (interaction) => {
                 const { Contents } = await s3Client.send(listCommand);
 
                 if (!Contents || Contents.length === 0) {
-                    await interaction.reply("Aucune image trouvée dans la base de données.");
+                    await interaction.reply("No images found.");
                     return;
                 }
 
@@ -82,7 +82,7 @@ bot.on("interactionCreate", async (interaction) => {
                 const { Body } = await s3Client.send(getCommand);
 
                 const buffer = await streamToBuffer(Body);
-                const attachment = new AttachmentBuilder(buffer, { name: "random_girl.jpg" });
+                const attachment = new AttachmentBuilder(buffer, { name: "petite.jpg" });
 
                 await interaction.reply({ files: [attachment] });
             } catch (error) {
